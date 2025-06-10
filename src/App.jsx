@@ -2,21 +2,19 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Card from './components/Card'
 
-// Lista di Attrici:   [https://lanciweb.github.io/demo/api/actresses/](https://lanciweb.github.io/demo/api/actresses/)
-// Lista di Attori:  [https://lanciweb.github.io/demo/api/actors/](https://lanciweb.github.io/demo/api/actors/)
-
-
 function App() {
+
+  //STATI
   const [listaAttrici, setListaAttrici] = useState([]);
   const [listaAttori, setListaAttori] = useState([]);
   const [listaTotale, setListaTotale] = useState([])
   const [sceltaCorrente, setSceltaCorrente] = useState("Tutti")
 
-
+  //Url API
   const apiUrlAttrici = "https://lanciweb.github.io/demo/api/actresses/"
   const apiUrlAttori = "https://lanciweb.github.io/demo/api/actors/"
 
-
+  //Prelevo le 2 liste e ne creo una unica (modifico la chiave per i film più visti e creo una nuova chiave per il select, poi setto la lista unica)
   useEffect(() => {
     Promise.all([
       axios.get(apiUrlAttrici),
@@ -41,6 +39,7 @@ function App() {
     });
   }, []);
 
+  //creo il filtro in base alla selezione
   const listaFiltrata = listaTotale.filter(actor =>
     sceltaCorrente === "Tutti" || actor.tipo === sceltaCorrente
   );
