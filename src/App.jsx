@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import Card from './components/Card'
 
 // Lista di Attrici:   [https://lanciweb.github.io/demo/api/actresses/](https://lanciweb.github.io/demo/api/actresses/)
 // Lista di Attori:  [https://lanciweb.github.io/demo/api/actors/](https://lanciweb.github.io/demo/api/actors/)
@@ -64,20 +65,8 @@ function App() {
       <div className="container">
 
         {listaFiltrata.map(attore => {
-          console.log(attore)
           return (
-
-            <div key={attore.name} className="card">
-              <div className="tCol">
-                <h3>{attore.name}</h3>
-                <h4>{attore.birth_year}</h4>
-                <p><strong>Nazionalità:</strong> {attore.nationality}</p>
-                <p><strong>Biografia:</strong> {attore.biography}</p>
-              </div>
-              <img src={attore.image} alt={attore.name} />
-              <p><strong>Riconoscimenti:</strong> {attore.awards}</p>
-            </div>
-
+            <Card actor={attore} />
           )
         })}
       </div>
