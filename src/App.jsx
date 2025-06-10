@@ -9,6 +9,9 @@ function App() {
   const [listaAttrici, setListaAttrici] = useState([]);
   const [listaAttori, setListaAttori] = useState([]);
   const [listaTotale, setListaTotale] = useState([])
+  const [sceltaCorrente, setSceltaCorrente] = useState("Tutti")
+
+
   const apiUrlAttrici = "https://lanciweb.github.io/demo/api/actresses/"
   const apiUrlAttori = "https://lanciweb.github.io/demo/api/actors/"
 
@@ -18,11 +21,15 @@ function App() {
       axios.get(apiUrlAttrici),
       axios.get(apiUrlAttori)
     ]).then(([resAttrici, resAttori]) => {
-      const attrici = resAttrici.data;
+      const attrici = resAttrici.data.map(attrice => ({
+        ...attrice,
+        tipo: "Attrice"
+      }));
       const attori = resAttori.data.map(attore => ({
         ...attore,
         most_famous_movies: attore.known_for,
-        awards: typeof attore.awards === 'string' ? [attore.awards] : attore.awards
+        tipo: "Attore"
+
 
 
       }));
@@ -33,12 +40,30 @@ function App() {
     });
   }, []);
 
+  const listaFiltrata = listaTotale.filter(actor =>
+    sceltaCorrente === "Tutti" || actor.tipo === sceltaCorrente
+  );
+
+
+
+
   return (
     <>
-      <h1>Benvenuti A MovieLandia</h1>
+      <h1>Benvenuti In Actors Land</h1>
+
+      <div className="wrapper">
+
+        <select name="" id="" value={sceltaCorrente} onChange={(e) => setSceltaCorrente(e.target.value)}>
+          <option value="Tutti">Tutti</option>
+          <option value="Attore">Attori</option>
+          <option value="Attrice">Attrici</option>
+        </select>
+
+      </div>
+
       <div className="container">
 
-        {listaTotale.map(attore => {
+        {listaFiltrata.map(attore => {
           console.log(attore)
           return (
 
@@ -55,12 +80,6 @@ function App() {
 
           )
         })}
-
-
-
-
-
-
       </div>
     </>
   )

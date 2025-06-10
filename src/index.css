@@ -16,6 +16,26 @@ h1 {
   text-align: center;
 }
 
+.wrapper {
+  width: 100%;
+  display: grid;
+  place-content: center;
+}
+
+select {
+  cursor: pointer;
+  width: 100px;
+  background-color: rgba(230, 230, 239, 0.078);
+  color: white;
+  border-radius: 5px;
+  padding: 2px;
+}
+
+option {
+  background-color: rgba(230, 230, 239, 0.078);
+  color: rgb(2, 2, 2);
+}
+
 .container {
   display: flex;
   flex-wrap: wrap;
